@@ -546,11 +546,11 @@ class Channel(amqp_object.Class):
         def decode(self, encoded, offset=0):
             length = struct.unpack_from('>I', encoded, offset)[0]
             offset += 4
-            self.channel_id = encoded[offset:offset + length].decode('utf8')
+            self.channel_id = encoded[offset:offset + length]
             try:
+                self.channel_id = self.channel_id.decode('utf8')
+            except UnicodeDecodeError:
                 self.channel_id = str(self.channel_id)
-            except UnicodeEncodeError:
-                pass
             offset += length
             return self
 
