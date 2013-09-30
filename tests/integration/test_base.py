@@ -12,7 +12,7 @@ import yaml
 CONFIG = yaml.load(open(os.path.join(os.path.abspath(os.path.dirname(__file__)),
                                      'broker.conf')))
 
-LOGGING_LEVEL = logging.critical
+LOGGING_LEVEL = logging.WARNING
 TIMEOUT = 4
 
 
@@ -95,7 +95,7 @@ class TestCase(unittest.TestCase):
 
 class SelectConnectionTestCase(TestCase):
 
-    def start(self, on_connected, on_error, on_closed):
+    def start(self, on_connected, on_error=None, on_closed=None):
         """Connect to rabbitmq and start the ioloop
 
         """
